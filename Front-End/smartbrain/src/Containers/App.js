@@ -14,6 +14,21 @@ const app = new Clarifai.App({
   apiKey: '6d02e5d81f8147568ec7d5ba86129ee3'
 });
 
+const initialState = {
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id: '',
+    email: '',
+    name: '',
+    entries: 0,
+    joined: ''
+  }
+}
+
 const particlesOptions = {
   particles: {
     number: {
@@ -112,7 +127,6 @@ class App extends Component {
             .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count}))
             })
-
         }
         this.displayFaceBox(this.calculateFaceLocation(response))
       })
@@ -122,7 +136,7 @@ class App extends Component {
   onRouteChange = (route) => {
     this.setState({route: 'home'})
     if (route === 'signout') {
-      this.setState({isSignedIn: false})
+      this.setState({initialState})
     }
     else if (route === 'home') {
       this.setState({isSignedIn: true})
